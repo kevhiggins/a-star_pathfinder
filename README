@@ -1,0 +1,14 @@
+This pathfinder uses the A* search algorithm
+http://en.wikipedia.org/wiki/A*_search_algorithm
+
+To see the pathfinder in action check out bin/PFDemo.swf
+
+To use the khiggins.pathfinder package, implement the INode interface.
+An example of this can be seen in khiggins/demo/Tile.as
+
+In order to compile using make, you need te Adobe Flex SDK
+http://www.ghostwire.com/aspireui/docs/basics/compiling-with-flex-mxmlc
+
+Throw mxmlc in your path and you can make with the Makefile
+
+Any thoughts or questions are welcome: kev.higgins@gmail.com
