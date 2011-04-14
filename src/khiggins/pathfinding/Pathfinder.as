@@ -1,8 +1,15 @@
 package khiggins.pathfinding {
+
+	/* Wrapper for findPath function. Will be modified for additional pathfinding algorithms eventually */
 	public class Pathfinder {
 		public function Pathfinder() {}	
 	
-		/* Finds the path between two Nodes using A* algorithm */
+		/**
+		* Finds the path between two Nodes using A* algorithm
+		* @param start INode to begin pathfinding from.
+		* @param end INode to find a path to.
+		* @return An Array of PathNodes defining a path from start to end.
+		*/
 		public function findPath(start:INode, end:INode):Array{
 			/* Initialize variables and add startNode to openList */
 			var startNode:PathNode			= new PathNode(start);
@@ -43,6 +50,7 @@ package khiggins.pathfinding {
 				openList.mergeUnique(adjNodes);
 			}
 
+			
 			if(foundNode != null && foundNode.nodeParent != null) {
 				curNode = foundNode;
 				do {

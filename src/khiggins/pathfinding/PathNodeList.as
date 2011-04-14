@@ -1,29 +1,40 @@
 package khiggins.pathfinding {
-	public dynamic class PathNodeList extends Array {
-    public function PathNodeList(...args)
-    {
-        var n:uint = args.length
-        if (n == 1 && (args[0] is Number))
-        {
-            var dlen:Number = args[0];
-            var ulen:uint = dlen;
-            if (ulen != dlen)
-            {
-                throw new RangeError("Array index is not a 32-bit unsigned integer ("+dlen+")");
-            }
-            length = ulen;
-        }
-        else
-        {
-            length = n;
-            for (var i:int=0; i < n; i++)
-            {
-                this[i] = args[i] 
-            }
-        }
-    }
 
-		/* Override default sort behavior to sort by fCost */
+	/* A custom array to store PathNodes. Overrides some array functionality for ease of use */
+	public dynamic class PathNodeList extends Array {
+
+		/**
+		* Creates a PathNodeList extending array.
+		* @param args inital elements to initialize in PathNode List
+		*/
+		public function PathNodeList(...args)
+		{
+				var n:uint = args.length
+				if (n == 1 && (args[0] is Number))
+				{
+				    var dlen:Number = args[0];
+				    var ulen:uint = dlen;
+				    if (ulen != dlen)
+				    {
+				        throw new RangeError("Array index is not a 32-bit unsigned integer ("+dlen+")");
+				    }
+				    length = ulen;
+				}
+				else
+				{
+				    length = n;
+				    for (var i:int=0; i < n; i++)
+				    {
+				        this[i] = args[i] 
+				    }
+				}
+		}
+
+
+		/**
+		* Override default sort behavior to sort by fCost.
+		* @param args allows for alternate sort functionality.
+		*/
 		AS3 override function sort(... args):* {
 			if(args.length == 0) {
 				this.sortOn("fCost", Array.NUMERIC);	
@@ -34,7 +45,9 @@ package khiggins.pathfinding {
 			return null;
 		}
 
-		/* Removes impassable nodes from list */
+		/**
+		* Removes impassable nodes from this PathNodeList.
+		*/
 		public function removeImpassable():void {
 			var delIndices:Array = new Array();
 			for (var i:int=0; i < this.length; i++) {
@@ -49,7 +62,10 @@ package khiggins.pathfinding {
 			}
 		}
 
-		/* Removes nodes that are shared between lists */
+		/**
+		* Removes nodes that are shared between lists from this list.
+		* @param nodeList PathNodeList to compare with this PathNodeList to determing element removal.
+		*/
 		public function removeShared(nodeList:PathNodeList):void {
 			var delIndices:Array = new Array();
 			for (var i:int=0; i < this.length; i++) {
@@ -67,7 +83,10 @@ package khiggins.pathfinding {
 			}
 		}
 
-		/* Merges lists giving priority to low gCost nodes */
+		/**
+		* Merges lists into this list giving priority to low gCost nodes.
+		* @param nodeList PathNodeList to merge into this.
+		*/
 		public function mergeUnique(nodeList:PathNodeList):void {
 			var listLength:int = this.length
 			for each (var curThat:PathNode in nodeList) {
@@ -87,7 +106,10 @@ package khiggins.pathfinding {
 			}
 		}
 
-		/* Calculates the costs for all PathNodes in list */
+		/**
+		* Calculates the costs for all PathNodes in list.
+		* @param endNode End point to reference for calculating costs.
+		*/
 		public function calculateNodes(endNode:PathNode):void {
 			var listLength:int = this.length;
 			for (var i:int; i < listLength; i++) {
